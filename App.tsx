@@ -212,7 +212,7 @@ const App: React.FC = () => {
         return <PressSection />;
       case 'ai-lab':
         return <div className="p-20 text-center text-gray-500">AI Modeling Lab Building...</div>;
-      case 'contact':
+case 'contact':
         return (
           <div className="max-w-3xl mx-auto px-4 py-12">
             <h2 className="text-3xl font-extrabold text-gray-900 mb-8 border-l-8 border-[#BB0000] pl-4">Get Involved</h2>
@@ -234,27 +234,29 @@ const App: React.FC = () => {
                       <span className="font-medium">github.com/bmmss-osu</span>
                     </div>
                  </div>
-                 
+
                  <div className="mt-8 pt-8 border-t border-gray-100">
                     <h3 className="text-lg font-bold text-gray-900 mb-4">Application Form</h3>
-                    <form className="space-y-6">
+                    <form action="https://api.web3forms.com/submit" method="POST" className="space-y-6">
+                      <input type="hidden" name="access_key" value="1152aece-a6d3-461f-86b2-e9de12984360" />
+
                       <div>
                         <label className="block text-sm font-medium text-gray-700">Name</label>
-                        <input type="text" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#BB0000] focus:ring-[#BB0000] p-3 border" placeholder="Brutus Buckeye" />
+                        <input type="text" name="name" required className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#BB0000] focus:ring-[#BB0000] p-3 border" placeholder="Brutus Buckeye" />
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-gray-700">Email</label>
-                        <input type="email" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#BB0000] focus:ring-[#BB0000] p-3 border" placeholder="name.#@osu.edu" />
+                        <input type="email" name="email" required className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#BB0000] focus:ring-[#BB0000] p-3 border" placeholder="name.#@osu.edu" />
                       </div>
-                      
+
                       {/* Role selection removed - all applicants are general members by default */}
 
                       <div>
                         <label className="block text-sm font-medium text-gray-700">Additional Message / Background</label>
-                        <textarea className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#BB0000] focus:ring-[#BB0000] p-3 border" rows={4} placeholder="Tell us about your technical background (e.g., Python, Math) and why you want to join..." />
+                        <textarea name="message" required className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#BB0000] focus:ring-[#BB0000] p-3 border" rows={4} placeholder="Tell us about your technical background (e.g., Python, Math) and why you want to join..." />
                       </div>
-                      
-                      <button type="button" className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-900 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900">
+
+                      <button type="submit" className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-900 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900">
                         Submit Application
                       </button>
                     </form>
