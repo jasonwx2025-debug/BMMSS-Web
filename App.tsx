@@ -212,7 +212,41 @@ const App: React.FC = () => {
         return <PressSection />;
       case 'ai-lab':
         return <div className="p-20 text-center text-gray-500">AI Modeling Lab Building...</div>;
-case 'contact':
+case 'contact': {
+        const [submitted, setSubmitted] = useState(false);
+        const [loading, setLoading] = useState(false);
+
+        const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+          e.preventDefault();
+          setLoading(true);
+
+          const formData = new FormData(e.currentTarget);
+          const data = Object.fromEntries(formData.entries());
+
+          try {
+            const response = await fetch("https://api.web3forms.com/submit", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+              },
+              body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+            if (result.success) {
+              setSubmitted(true);
+            } else {
+              alert("提交失败，请稍后重试。");
+            }
+          } catch (error) {
+            console.error(error);
+            alert("网络错误，请检查网络后重试。");
+          } finally {
+            setLoading(false);
+          }
+        };
+
         return (
           <div className="max-w-3xl mx-auto px-4 py-12">
             <h2 className="text-3xl font-extrabold text-gray-900 mb-8 border-l-8 border-[#BB0000] pl-4">Get Involved</h2>
@@ -237,34 +271,51 @@ case 'contact':
 
                  <div className="mt-8 pt-8 border-t border-gray-100">
                     <h3 className="text-lg font-bold text-gray-900 mb-4">Application Form</h3>
-                    <form action="https://api.web3forms.com/submit" method="POST" className="space-y-6">
-                      <input type="hidden" name="access_key" value="1152aece-a6d3-461f-86b2-e9de12984360" />
 
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700">Name</label>
-                        <input type="text" name="name" required className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#BB0000] focus:ring-[#BB0000] p-3 border" placeholder="Brutus Buckeye" />
+                    {submitted ? (
+                      <div className="p-6 bg-green-50 border border-green-200 rounded-lg text-center">
+                        <h4 className="text-lg font-bold text-green-800 mb-2">Application Submitted Successfully! 🎉</h4>
+                        <p className="text-green-700 text-sm">Thank you for applying. We have received your information and will get back to you soon.</p>
+                        <button
+                          onClick={() => setSubmitted(false)}
+                          className="mt-4 px-4 py-2 bg-green-600 text-white text-sm rounded-md hover:bg-green-700 transition-colors"
+                        >
+                          Send Another Response
+                        </button>
                       </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700">Email</label>
-                        <input type="email" name="email" required className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#BB0000] focus:ring-[#BB0000] p-3 border" placeholder="name.#@osu.edu" />
-                      </div>
+                    ) : (
+                      <form onSubmit={handleSubmit} className="space-y-6">
+                        <input type="hidden" name="access_key" value="1152aece-a6d3-461f-86b2-e9de12984360" />
 
-                      {/* Role selection removed - all applicants are general members by default */}
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700">Name</label>
+                          <input type="text" name="name" required className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#BB0000] focus:ring-[#BB0000] p-3 border" placeholder="Brutus Buckeye" />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700">Email</label>
+                          <input type="email" name="email" required className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#BB0000] focus:ring-[#BB0000] p-3 border" placeholder="name.#@osu.edu" />
+                        </div>
 
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700">Additional Message / Background</label>
-                        <textarea name="message" required className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#BB0000] focus:ring-[#BB0000] p-3 border" rows={4} placeholder="Tell us about your technical background (e.g., Python, Math) and why you want to join..." />
-                      </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700">Additional Message / Background</label>
+                          <textarea name="message" required className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#BB0000] focus:ring-[#BB0000] p-3 border" rows={4} placeholder="Tell us about your technical background (e.g., Python, Math) and why you want to join..." />
+                        </div>
 
-                      <button type="submit" className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-900 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900">
-                        Submit Application
-                      </button>
-                    </form>
+                        <button
+                          type="submit"
+                          disabled={loading}
+                          className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-900 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 disabled:opacity-50 transition-colors"
+                        >
+                          {loading ? "Submitting..." : "Submit Application"}
+                        </button>
+                      </form>
+                    )}
                  </div>
                </div>
             </div>
           </div>
         );
+      }
       case 'constitution':
         return <Constitution />;
       case 'terms':
