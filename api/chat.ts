@@ -64,7 +64,7 @@ const userVector = embedResult.embeddings?.[0]?.values;
 
     // 4. 调用大模型生成回答
     const chatResponse = await ai.models.generateContent({
-      model: 'gemini-3.5-flash-lite',
+      model: 'gemini-2.5-flash',
       contents: message,
       config: {
         systemInstruction: systemInstruction,
