@@ -1,6 +1,10 @@
 import { GoogleGenAI } from '@google/genai';
-import faqDatabase from '../faq-database.json';
+import fs from 'fs';
+import path from 'path';
+
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+const filePath = path.join(process.cwd(), 'faq-database.json');
+const faqDatabase = JSON.parse(fs.readFileSync(filePath, 'utf8'));
 
 function cosineSimilarity(vecA, vecB) {
     let dotProduct = 0;
