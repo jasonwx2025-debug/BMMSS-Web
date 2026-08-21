@@ -1,8 +1,13 @@
 import { GoogleGenAI } from '@google/genai';
-import faqDatabase from '../faq-database.json' assert { type: 'json' };
-import faqDatabase from '../faq-database.json';
+import fs from 'fs';
+import path from 'path';
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+
+// 💡 彻底抛弃 import JSON，改用 fs.readFileSync 手动加载
+// 这种方式完全绕过了 ESM 的类型声明要求，是 Vercel 上最稳定的做法
+path.join(process.cwd(), 'faq-database.json');
+const faqDatabase = JSON.parse(fs.readFileSync(filePath, 'utf8'));
 
 function cosineSimilarity(vecA, vecB) {
     let dotProduct = 0;
