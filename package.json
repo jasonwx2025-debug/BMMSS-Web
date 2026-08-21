@@ -10,7 +10,7 @@
     "lint": "tsc --noEmit"
   },
   "dependencies": {
-    "@google/genai": "^1.38.0",
+    "@google/genai": "^1.52.0",
     "d3": "^7.9.0",
     "lucide-react": "^0.562.0",
     "react": "^19.2.3",

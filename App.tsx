@@ -6,6 +6,7 @@ import EventsSection from './components/EventsSection';
 import LeadershipSection from './components/LeadershipSection';
 import Constitution from './components/Constitution';
 import PressSection from './components/PressSection';
+import ChatWidget from './components/ChatWidget';
 import { Mail, Github, Users, TrendingUp, BookOpen, Target, Code, Globe, ShieldCheck, FileText, Lock, Accessibility, Instagram, MapPin } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -14,6 +15,24 @@ const App: React.FC = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [activeTab]);
+
+const handleSendMessage = async (userText: string) => {
+  try {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: userText }),
+    });
+
+    const data = await res.json();
+    if (data.reply) {
+      console.log("AI 回复:", data.reply);
+      // 这里更新你的前端聊天消息状态
+    }
+  } catch (err) {
+    console.error("请求失败:", err);
+  }
+};
 
   const renderContent = () => {
     switch (activeTab) {
@@ -405,6 +424,10 @@ case 'contact':
           </div>
         </div>
       </footer>
+
+
+      {/* 挂载 AI 聊天悬浮组件（放在最外层根 div 内部的最后） */}
+      <ChatWidget />
     </div>
   );
 };
