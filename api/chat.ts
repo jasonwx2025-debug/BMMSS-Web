@@ -1,4 +1,5 @@
 import { GoogleGenAI } from '@google/genai';
+import faqDatabase from '../faq-database.json' assert { type: 'json' };
 import faqDatabase from '../faq-database.json';
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
