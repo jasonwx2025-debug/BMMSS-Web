@@ -38,7 +38,7 @@ export default async function handler(req, res) {
       model: 'gemini-embedding-001',
       contents: message,
     });
-const userVector = embedResult.embeddings?.[0]?.values || embedResult.embedding?.values;
+const userVector = embedResult.embeddings?.[0]?.values;
 
     // 3. 计算余弦相似度并检索最相关的前 2 个片段 (Top-2)
     // 实际开发中可用余弦相似度函数计算，这里简化逻辑
