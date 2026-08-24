@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { GoogleGenAI } from '@google/genai';
-import { cosineSimilarity } from '../utils/vector';
+import { cosineSimilarity } from '../utils/vector.js';
 
 let cachedFaqDatabase: any = null;
 

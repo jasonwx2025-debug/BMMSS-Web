@@ -1,4 +1,4 @@
-import { processRAGQuery } from '../src/services/ragservices';
+import { processRAGQuery } from '../src/services/ragservices.js';
 import { Faqitem, ScoredFaqIten } from '../src//types/index';
 
 
