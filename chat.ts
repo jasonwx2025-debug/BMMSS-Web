@@ -1,5 +1,5 @@
-import { processRAGQuery } from '../src/services/ragservices.ts';
-import { Faqitem, ScoredFaqIten } from '../src/types/index.ts';
+import { processRAGQuery } from '../services/ragservices';
+import { FaqItem, ScoredFaqItem } from '../types/index';
 
 
 interface ChatRequestBody {
